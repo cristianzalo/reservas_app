@@ -2,7 +2,7 @@ package com.wal.project.dto.customer;
 
 
 
-public class CustomerListItemDTO {
+public class CustomerDTO {
 	
 	
 
@@ -18,7 +18,7 @@ public class CustomerListItemDTO {
     private String password;
 
     
-    public CustomerListItemDTO() { }
+    public CustomerDTO() { }
     
 
 	public int getIdCustomer() {

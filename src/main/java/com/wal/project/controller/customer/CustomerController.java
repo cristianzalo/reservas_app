@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wal.project.dto.customer.CustomerInsertDTO;
-import com.wal.project.dto.customer.CustomerListItemDTO;
-import com.wal.project.models.Customer;
+import com.wal.project.dto.customer.CustomerDTO;
 import com.wal.project.service.customer.ICustomerService;
 
 @RestController
@@ -32,57 +31,57 @@ public class CustomerController {
 
 	
 	@GetMapping("/customers")
-	public ResponseEntity<List<CustomerListItemDTO>> getCustomers(){
+	public ResponseEntity<List<CustomerDTO>> getCustomers(){
 		
-		return new ResponseEntity<List<CustomerListItemDTO>>(customerService.getCustomers(),HttpStatus.OK);
+		return new ResponseEntity<List<CustomerDTO>>(customerService.getCustomers(),HttpStatus.OK);
 		
 	}
 	
 	
 	@PostMapping("/customer")
-	public ResponseEntity<Customer> insertCustomer(@RequestBody CustomerInsertDTO customer){
+	public ResponseEntity<CustomerDTO> insertCustomer(@RequestBody CustomerInsertDTO customer){
 		
-		Customer customerAdded = customerService.insertCustomer(customer);
+		CustomerDTO customerAdded = customerService.insertCustomer(customer);
 		
 		
 		if (customerAdded == null) {
 			
-			return new ResponseEntity<Customer>(customerAdded,HttpStatus.CONFLICT);
+			return new ResponseEntity<CustomerDTO>(customerAdded,HttpStatus.CONFLICT);
 		}
 		
 		
-		return new ResponseEntity<Customer>(customerAdded,HttpStatus.CREATED);
+		return new ResponseEntity<CustomerDTO>(customerAdded,HttpStatus.CREATED);
 	}
 	
 	
 	
 	@PostMapping("/updateCustomer")
-	public ResponseEntity<Customer> updateCustomer(@RequestBody CustomerInsertDTO customer){
+	public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody CustomerInsertDTO customer){
 		
-		Customer customerUpdated = customerService.updateCustomer(customer);
+		CustomerDTO customerUpdated = customerService.updateCustomer(customer);
 		
 		
 		if (customerUpdated == null) {
 			
-			return new ResponseEntity<Customer>(customerUpdated,HttpStatus.CONFLICT);
+			return new ResponseEntity<CustomerDTO>(customerUpdated,HttpStatus.CONFLICT);
 		}
 		
 		
-		return new ResponseEntity<Customer>(customerUpdated,HttpStatus.ACCEPTED);
+		return new ResponseEntity<CustomerDTO>(customerUpdated,HttpStatus.ACCEPTED);
 	}
 	
 	
 	@DeleteMapping("/deleteCustomer/{id}")
-	public ResponseEntity<Customer> deleteCustomer(@PathVariable int id){
+	public ResponseEntity<CustomerDTO> deleteCustomer(@PathVariable int id){
 		
-		Customer customerDeleted = customerService.deleteCustomer(id);
+		CustomerDTO customerDeleted = customerService.deleteCustomer(id);
 		
 		if (customerDeleted== null) {
 			
-			return new ResponseEntity<Customer>(customerDeleted,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<CustomerDTO>(customerDeleted,HttpStatus.BAD_REQUEST);
 		}
 		
-		return  new ResponseEntity<Customer>(customerDeleted,HttpStatus.ACCEPTED);
+		return  new ResponseEntity<CustomerDTO>(customerDeleted,HttpStatus.ACCEPTED);
 		
 	}
 	

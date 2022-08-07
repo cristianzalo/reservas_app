@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.wal.project.dao.employee.IEmployeeDao;
 import com.wal.project.dto.employee.EmployeeInsertDTO;
-import com.wal.project.dto.employee.EmployeeItemListDTO;
+import com.wal.project.dto.employee.EmployeeDTO;
 import com.wal.project.models.Employee;
 import com.wal.project.service.employee.IEmployeeService;
 
@@ -27,14 +27,14 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	
 
 	@Override
-	public List<EmployeeItemListDTO> getEmployees() {
+	public List<EmployeeDTO> getEmployees() {
 		List<Employee> listEmployee = employeeDao.findAll();
 		
-		List<EmployeeItemListDTO> listEmployeeDTO = new ArrayList<>();
+		List<EmployeeDTO> listEmployeeDTO = new ArrayList<>();
 		
 		for (Employee employee : listEmployee) {
 			
-			EmployeeItemListDTO employeeItem = new EmployeeItemListDTO();
+			EmployeeDTO employeeItem = new EmployeeDTO();
 			
 			employeeItem.setIdEmployee(employee.getIdEmployee());
 			employeeItem.setName(employee.getName());
@@ -50,8 +50,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	
 
 	@Override
-	public Employee insertEmployee(EmployeeInsertDTO employee) {
+	public EmployeeDTO insertEmployee(EmployeeInsertDTO employee) {
 		Employee employeeInsert;
+		
+		EmployeeDTO employeeDTOReturn;
 		
 		Optional<Employee> employeeExist = employeeDao.findById(employee.getIdEmployee());
 		
@@ -67,14 +69,22 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			
 			
 			employeeInsert = employeeDao.save(employeeInsert);
+			
+			employeeDTOReturn = new EmployeeDTO();
+			
+			employeeDTOReturn.setIdEmployee(employeeInsert.getIdEmployee());
+			employeeDTOReturn.setName(employeeInsert.getName());
+			employeeDTOReturn.setLastname(employeeInsert.getLastname());
+			
+			
 		} else {
 			
-			employeeInsert= null;
+			employeeDTOReturn= null;
 		}
 		
 		
 		
-		return employeeInsert;
+		return employeeDTOReturn;
 	}
 	
 	
@@ -82,8 +92,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	
 
 	@Override
-	public Employee updateEmployee(EmployeeInsertDTO employee) {
+	public EmployeeDTO updateEmployee(EmployeeInsertDTO employee) {
 		Employee employeeUpdate;
+		
+		EmployeeDTO employeeDTOReturn;
 		
 		Optional<Employee> employeeExist = employeeDao.findById(employee.getIdEmployee());
 		
@@ -99,37 +111,54 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			
 			
 			employeeUpdate = employeeDao.save(employeeUpdate);
+			
+			employeeDTOReturn = new EmployeeDTO();
+			
+			employeeDTOReturn.setIdEmployee(employeeUpdate.getIdEmployee());
+			employeeDTOReturn.setName(employeeUpdate.getName());
+			employeeDTOReturn.setLastname(employeeUpdate.getLastname());
+			
 		} else {
 			
-			employeeUpdate= null;
+			employeeDTOReturn= null;
 		}
 		
 	
 		
-		return employeeUpdate;
+		return employeeDTOReturn;
 	}
 	
 	
 	
 
 	@Override
-	public Employee deleteEmployee(Integer id) {
+	public EmployeeDTO deleteEmployee(Integer id) {
 		
 		Optional<Employee> employeeDelete = employeeDao.findById(id);
 		
 		Employee employeeDeleted ;
 		
+		EmployeeDTO employeeDTOReturn;
+		
+		
 		if(employeeDelete.isPresent()) {
 			
 			employeeDeleted =  employeeDelete.get();
 			
+			employeeDTOReturn = new EmployeeDTO();
+			
+			employeeDTOReturn.setIdEmployee(employeeDeleted.getIdEmployee());
+			employeeDTOReturn.setName(employeeDeleted.getName());
+			employeeDTOReturn.setLastname(employeeDeleted.getLastname());
+			
+			
 			employeeDao.deleteById(id);
 		} else {
 			
-			employeeDeleted= null;
+			employeeDTOReturn= null;
 		}
 		
-		return employeeDeleted;
+		return employeeDTOReturn;
 	}
 
 	

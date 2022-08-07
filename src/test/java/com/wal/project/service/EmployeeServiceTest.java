@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.wal.project.dao.employee.IEmployeeDao;
+import com.wal.project.dto.employee.EmployeeDTO;
 import com.wal.project.dto.employee.EmployeeInsertDTO;
 import com.wal.project.models.Employee;
 import com.wal.project.service.employee.impl.EmployeeServiceImpl;
@@ -80,7 +81,7 @@ public class EmployeeServiceTest {
 		
 		when(employeeDao.findById(1)).thenReturn(employeeFinded);
 		
-		Employee returnedEmployee = employeeService.insertEmployee(insertData);
+		EmployeeDTO returnedEmployee = employeeService.insertEmployee(insertData);
 		
 		assertEquals(null , returnedEmployee );
 		
@@ -98,7 +99,7 @@ public class EmployeeServiceTest {
 		insertData.setEmployeeName("Cristian");
 		insertData.setEmployeeLastname("Zapata");
 		
-		Employee returnedEmployee = new Employee();
+		EmployeeDTO returnedEmployee = new EmployeeDTO();
 		
 		Employee employeeReturn = new Employee();
 		
@@ -115,7 +116,7 @@ public class EmployeeServiceTest {
 		
 		 returnedEmployee = employeeService.insertEmployee(insertData);
 		
-		assertEquals(employeeReturn , returnedEmployee );
+		assertEquals(employeeReturn.getIdEmployee() , returnedEmployee.getIdEmployee() );
 		
 		
 	}

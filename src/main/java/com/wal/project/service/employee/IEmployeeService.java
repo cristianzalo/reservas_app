@@ -3,17 +3,17 @@ package com.wal.project.service.employee;
 import java.util.List;
 
 import com.wal.project.dto.employee.EmployeeInsertDTO;
-import com.wal.project.dto.employee.EmployeeItemListDTO;
-import com.wal.project.models.Employee;
+import com.wal.project.dto.employee.EmployeeDTO;
+
 
 public interface IEmployeeService {
 	
-	public List<EmployeeItemListDTO> getEmployees();
+	public List<EmployeeDTO> getEmployees();
 	
-	public Employee insertEmployee(EmployeeInsertDTO employee);
+	public EmployeeDTO insertEmployee(EmployeeInsertDTO employee);
 	
-	public Employee updateEmployee(EmployeeInsertDTO employee);
+	public EmployeeDTO updateEmployee(EmployeeInsertDTO employee);
 	
-	public Employee deleteEmployee(Integer id);
+	public EmployeeDTO deleteEmployee(Integer id);
 
 }
