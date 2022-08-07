@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wal.project.dto.employee.EmployeeInsertDTO;
-import com.wal.project.dto.employee.EmployeeItemListDTO;
-import com.wal.project.models.Employee;
+import com.wal.project.dto.employee.EmployeeDTO;
 import com.wal.project.service.employee.IEmployeeService;
 
 @RestController
@@ -31,55 +30,55 @@ public class EmployeeController {
 	
 	
 	@GetMapping("/employees")
-	public ResponseEntity<List<EmployeeItemListDTO>> getEmployees(){
+	public ResponseEntity<List<EmployeeDTO>> getEmployees(){
 		
-		return new ResponseEntity<List<EmployeeItemListDTO>>(employeeService.getEmployees(),HttpStatus.OK);
+		return new ResponseEntity<List<EmployeeDTO>>(employeeService.getEmployees(),HttpStatus.OK);
 	}
 	
 	
 	@PostMapping("/employee")
-	public ResponseEntity<Employee> insertEmployee( @RequestBody EmployeeInsertDTO employeeInsert){
+	public ResponseEntity<EmployeeDTO> insertEmployee( @RequestBody EmployeeInsertDTO employeeInsert){
 		
-		Employee addedEmployee = employeeService.insertEmployee(employeeInsert);
+		EmployeeDTO addedEmployee = employeeService.insertEmployee(employeeInsert);
 		
 		if(addedEmployee == null) {
 			
-			return new ResponseEntity<Employee>(addedEmployee, HttpStatus.CONFLICT);
+			return new ResponseEntity<EmployeeDTO>(addedEmployee, HttpStatus.CONFLICT);
 		}
 		
-		return new ResponseEntity<Employee>(addedEmployee, HttpStatus.CREATED);
+		return new ResponseEntity<EmployeeDTO>(addedEmployee, HttpStatus.CREATED);
 		
 	}
 	
 	
 	@PostMapping("/updateEmployee")
-	public ResponseEntity<Employee> updateEmployee( @RequestBody EmployeeInsertDTO employeeInsert){
+	public ResponseEntity<EmployeeDTO> updateEmployee( @RequestBody EmployeeInsertDTO employeeInsert){
 		
-		Employee updatedEmployee = employeeService.updateEmployee(employeeInsert);
+		EmployeeDTO updatedEmployee = employeeService.updateEmployee(employeeInsert);
 		
 		if(updatedEmployee == null) {
 			
-			return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.CONFLICT);
+			return new ResponseEntity<EmployeeDTO>(updatedEmployee, HttpStatus.CONFLICT);
 		}
 		
-		return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.ACCEPTED);
+		return new ResponseEntity<EmployeeDTO>(updatedEmployee, HttpStatus.ACCEPTED);
 		
 	}
 	
 	
 	
 	@DeleteMapping("/deleteEmployee/{id}")
-	public ResponseEntity<Employee> deleteEmployee(@PathVariable int id){
+	public ResponseEntity<EmployeeDTO> deleteEmployee(@PathVariable int id){
 		
-		Employee deletedEmployee = employeeService.deleteEmployee(id);
+		EmployeeDTO deletedEmployee = employeeService.deleteEmployee(id);
 		
 		if (deletedEmployee == null) {
 			
-			return new ResponseEntity<Employee>(deletedEmployee, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<EmployeeDTO>(deletedEmployee, HttpStatus.BAD_REQUEST);
 		}
 		
 		
-		return  new ResponseEntity<Employee>(deletedEmployee, HttpStatus.ACCEPTED);
+		return  new ResponseEntity<EmployeeDTO>(deletedEmployee, HttpStatus.ACCEPTED);
 		
 		
 	}

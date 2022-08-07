@@ -2,7 +2,7 @@ package com.wal.project.dto.employee;
 
 
 
-public class EmployeeItemListDTO {
+public class EmployeeDTO {
 	
 	
 	private int idEmployee;
@@ -15,7 +15,7 @@ public class EmployeeItemListDTO {
 	
 	
 	
-	public EmployeeItemListDTO(){}
+	public EmployeeDTO(){}
 
 
 

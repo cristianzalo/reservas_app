@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.wal.project.dao.customer.ICustomerDao;
 import com.wal.project.dto.customer.CustomerInsertDTO;
-import com.wal.project.dto.customer.CustomerListItemDTO;
+import com.wal.project.dto.customer.CustomerDTO;
 import com.wal.project.models.Customer;
 import com.wal.project.service.customer.ICustomerService;
 
@@ -25,14 +25,14 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public List<CustomerListItemDTO> getCustomers() {
+	public List<CustomerDTO> getCustomers() {
 		List<Customer> customers = customerDao.findAll();
 		
-		List<CustomerListItemDTO> customersListDTO = new ArrayList<>();
+		List<CustomerDTO> customersListDTO = new ArrayList<>();
 		
 		for (Customer customer : customers) {
 			
-			CustomerListItemDTO customerDto = new CustomerListItemDTO();
+			CustomerDTO customerDto = new CustomerDTO();
 			
 			customerDto.setIdCustomer(customer.getIdCustomer());
 			customerDto.setCustomerName(customer.getCustomerName());
@@ -50,8 +50,10 @@ public class CustomerServiceImpl implements ICustomerService {
 	
 
 	@Override
-	public Customer insertCustomer(CustomerInsertDTO customer) {
+	public CustomerDTO insertCustomer(CustomerInsertDTO customer) {
 		Customer customerInsert;
+		
+		CustomerDTO customerDTOReturn;
 		
 		Optional<Customer> customerExist = customerDao.findById(customer.getIdCustomer());
 		
@@ -67,18 +69,29 @@ public class CustomerServiceImpl implements ICustomerService {
 			
 			customerInsert = customerDao.save(customerInsert);
 			
+			customerDTOReturn = new CustomerDTO();
+			
+			customerDTOReturn.setIdCustomer(customerInsert.getIdCustomer());
+			customerDTOReturn.setCustomerName(customerInsert.getCustomerName());
+			customerDTOReturn.setUserCustomer(customerInsert.getUserCustomer());
+			customerDTOReturn.setPassword(customerInsert.getPassword());
+			
+			
+			
 		}else {
 			
-			customerInsert = null;
+			customerDTOReturn = null;
 			
 		}
 		
-		return customerInsert;
+		return customerDTOReturn;
 	}
 
 	@Override
-	public Customer updateCustomer(CustomerInsertDTO customer) {
+	public CustomerDTO updateCustomer(CustomerInsertDTO customer) {
 		Customer customerUpdate;
+		
+		CustomerDTO customerDTOReturn;
 		
 		Optional<Customer> customerExist = customerDao.findById(customer.getIdCustomer());
 		
@@ -94,13 +107,20 @@ public class CustomerServiceImpl implements ICustomerService {
 			
 			customerUpdate = customerDao.save(customerUpdate);
 			
+			customerDTOReturn = new CustomerDTO();
+			
+			customerDTOReturn.setIdCustomer(customerUpdate.getIdCustomer());
+			customerDTOReturn.setCustomerName(customerUpdate.getCustomerName());
+			customerDTOReturn.setUserCustomer(customerUpdate.getUserCustomer());
+			customerDTOReturn.setPassword(customerUpdate.getPassword());
+			
 		}else {
 			
-			customerUpdate = null;
+			customerDTOReturn = null;
 			
 		}
 		
-		return customerUpdate;
+		return customerDTOReturn;
 	}
 	
 	
@@ -108,8 +128,10 @@ public class CustomerServiceImpl implements ICustomerService {
 	
 
 	@Override
-	public Customer deleteCustomer(Integer id) {
+	public CustomerDTO deleteCustomer(Integer id) {
 		Optional<Customer> customerDelete = customerDao.findById(id);
+		
+		CustomerDTO customerDTOReturn;
 		
 		Customer customerDeleted;
 		
@@ -117,15 +139,24 @@ public class CustomerServiceImpl implements ICustomerService {
 			
 			customerDeleted = customerDelete.get();
 			
+			
+			customerDTOReturn = new CustomerDTO();
+			
+			customerDTOReturn.setIdCustomer(customerDeleted.getIdCustomer());
+			customerDTOReturn.setCustomerName(customerDeleted.getCustomerName());
+			customerDTOReturn.setUserCustomer(customerDeleted.getUserCustomer());
+			customerDTOReturn.setPassword(customerDeleted.getPassword());
+			
+			
 			customerDao.deleteById(id);
 			
 		}else {
 			
-			customerDeleted = null;
+			customerDTOReturn = null;
 		}
 		
 		// TODO Auto-generated method stub
-		return customerDeleted;
+		return customerDTOReturn;
 	}
 	
 

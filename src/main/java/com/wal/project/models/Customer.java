@@ -5,11 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Customer  implements Serializable{
@@ -31,8 +28,7 @@ public class Customer  implements Serializable{
     @Column(length = 50)
     private String password;
     
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+    @OneToMany( mappedBy = "customer")
     private List<Booking> bookings;
     
     

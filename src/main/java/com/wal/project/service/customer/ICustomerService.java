@@ -2,19 +2,18 @@ package com.wal.project.service.customer;
 
 import java.util.List;
 
+import com.wal.project.dto.customer.CustomerDTO;
 import com.wal.project.dto.customer.CustomerInsertDTO;
-import com.wal.project.dto.customer.CustomerListItemDTO;
-import com.wal.project.models.Customer;
 
 public interface ICustomerService {
 	
-	public List<CustomerListItemDTO> getCustomers();
+	public List<CustomerDTO> getCustomers();
 	
-	public Customer insertCustomer(CustomerInsertDTO customer);
+	public CustomerDTO insertCustomer(CustomerInsertDTO customer);
 	
-	public Customer updateCustomer(CustomerInsertDTO customer);
+	public CustomerDTO updateCustomer(CustomerInsertDTO customer);
 	
-	public Customer deleteCustomer(Integer id);
+	public CustomerDTO deleteCustomer(Integer id);
 	
 
 }

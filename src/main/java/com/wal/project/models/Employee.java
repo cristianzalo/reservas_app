@@ -5,11 +5,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Employee implements Serializable{
@@ -28,8 +26,8 @@ public class Employee implements Serializable{
 	@Column(length = 50)
 	private String lastname;
 	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
+	
+	@OneToMany( mappedBy = "employee")
 	private List<Booking> bookings;
 	
 	public Employee() {}
